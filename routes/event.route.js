@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+
+const { validate } = require('../middlewares/validations');
 const { getAllEvents, getEventById, createEvent, updateEvent, deleteEvent } = require('../controllers/event.controller');
-const { validate, createEventValidation, getEventByIdValidation, updateEventValidation, getEventsByPaginationValidation } = require('../middlewares/validation');
+const { createEventValidation, getEventByIdValidation, updateEventValidation, getEventsByPaginationValidation } = require('../middlewares/validations/event.validation');
 
 
 router.get('/', validate(getEventsByPaginationValidation), getAllEvents);

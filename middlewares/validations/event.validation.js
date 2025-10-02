@@ -1,18 +1,4 @@
-const { validationResult, param, body, query } = require('express-validator');
-
-const validate = (validations) => async (req, res, next) => {
-    await Promise.all(validations.map(validation => validation.run(req)));
-
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            code: 'VAL_ERR',
-            message: 'Validation failed',
-            errors: errors.array()
-        });
-    }
-    next();
-};
+const { param, body, query } = require('express-validator');
 
 const getEventsByPaginationValidation = [
     query('page').optional().isInt({ min: 1 }).withMessage('Page must be a positive integer'),
@@ -110,4 +96,9 @@ const updateEventValidation = [
         .isString().withMessage("Attachment must be a string"),
 ];
 
-module.exports = { validate, createEventValidation, getEventByIdValidation, updateEventValidation, getEventsByPaginationValidation };
+module.exports = {
+    createEventValidation,
+    getEventByIdValidation,
+    updateEventValidation,
+    getEventsByPaginationValidation
+};
