@@ -1,12 +1,5 @@
 const Users = require('../../models/user.model');
-
-const ERROR_MESSAGES = {
-    MISSING_AUTH_HEADER: { code: 'UA', message: 'Authorization header is required' },
-    INVALID_AUTH_TYPE: { code: 'UA', message: 'Authorization type is not supported' },
-    MISSING_CREDENTIALS: { code: 'UA', message: 'Credentials are required' },
-    INVALID_CREDENTIALS: { code: 'UA', message: 'Email or password is invalid' },
-    SERVER_ERROR: { code: 'ER', message: 'Internal server error' }
-};
+const ERROR_MESSAGES = require('../../helpers/messages');
 
 const basicAuth = async (req, res, next) => {
     try {
