@@ -12,6 +12,8 @@ const ERROR_MESSAGES = {
     LOGOUT_ERROR: { code: 'ER', message: 'Error logging out' },
     LOGIN_SUCCESS: { code: 'OK', message: 'Login successful' },
     LOGOUT_SUCCESS: { code: 'OK', message: 'Logout successful' },
+    UNAUTHORIZED: { code: 'UA', message: 'Unauthorized access' },
+    FORBIDDEN_ROLE: { code: 'FR', message: 'You do not have permission to perform this action' }
 };
 
 module.exports = ERROR_MESSAGES;

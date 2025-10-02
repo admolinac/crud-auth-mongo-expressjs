@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const ERROR_MESSAGES = require('../../helpers/messages')
 
-const JWT_SECRET = process.env('JWT_SECRET') || 'my-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET || 'my-secret-key';
 
 const jwtAuth = (req, res, next) => {
     try {

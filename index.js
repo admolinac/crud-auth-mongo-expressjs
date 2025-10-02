@@ -11,9 +11,11 @@ const connectToDatabase = require('./config/dbClient');
 
 const healthRouter = require('./routes/health.route');
 const eventRouter = require('./routes/event.route');
+const authRouter = require('./routes/auth.route');
+const userRouter = require('./routes/user.route');
 
 const app = express();
-const PORT = process.env.PORT || 3030;
+const PORT = process.env.PORT || 3001;
 
 connectToDatabase();
 
@@ -43,6 +45,8 @@ app.use(logger);
 
 app.use('/health', healthRouter);
 
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/events', eventRouter);
 
 app.use((err, req, res, next) => {
