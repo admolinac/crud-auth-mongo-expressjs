@@ -2,6 +2,8 @@
 require('dotenv').config();
 
 const express = require('express');
+const session = require('express-session');
+const cors = require('cors');
 
 const logger = require('./middlewares/logger');
 
@@ -17,6 +19,25 @@ connectToDatabase();
 
 app.use(express.json());
 
+app.use(cors({
+    origin: '*',
+    // Configure according to your frontend URL
+    // origin: process.env.FRONTEND_URL,
+    // credentials: true
+}));
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        name: 'session',
+        maxAge: 8 * 60 * 60 * 1000, // 8h
+        httpOnly: true,
+        secure: process.env.ENV === 'production', // true only on production with HTTPS
+        sameSite: process.env.ENV === 'production' ? 'strict' : 'lax'
+    }
+}));
 
 app.use(logger);
 
