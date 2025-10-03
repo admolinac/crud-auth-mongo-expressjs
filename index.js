@@ -25,11 +25,11 @@ app.use(cors({
     origin: '*',
     // Configure according to your frontend URL
     // origin: process.env.FRONTEND_URL,
-    // credentials: true
+    // credentials: true 
 }));
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'default_secret',
     resave: false,
     saveUninitialized: false,
     cookie: {
