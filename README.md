@@ -5,16 +5,131 @@ A RESTful API for managing financial events built with Node.js, Express, and Mon
 ## DEMO videos
 
 ```
-https://drive.google.com/drive/folders/1SF6rEoC13DICRA06ba6FiW2UFnNZGGjG?usp=sharing
+https://drive.google.com/drive/folders/1YyL4hxtQ2wGB8CJKiKVi9twALmbXYbXr?usp=sharing
 ```
 
 ## Base URL
 
 ```
-http://localhost:3030
+http://localhost:3001
 ```
 
 ---
+
+## Authentication
+
+The API supports three authentication methods:
+
+### 1. Basic Authentication
+
+Use HTTP Basic Authentication with your username and password.
+
+```bash
+# Example using curl
+curl -X GET http://localhost:3001/api/v1/events \
+  -H "Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ="
+```
+
+### 2. JWT Authentication
+
+First, obtain a JWT token by logging in, then use it in subsequent requests.
+
+**Login Endpoint:**
+`POST /auth/login`
+
+**Request:**
+
+```json
+{
+  "username": "your_username",
+  "password": "your_password"
+}
+```
+
+**Response:**
+
+```json
+{
+  "code": "OK",
+  "message": "Login successful",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  }
+}
+```
+
+**Using the token:**
+
+```bash
+# Example using curl
+curl -X GET http://localhost:3001/api/v1/events \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+```
+
+### 3. Session Authentication
+
+**Login Endpoint:**
+`POST /auth/session/login`
+
+**Request:**
+
+```json
+{
+  "username": "your_username",
+  "password": "your_password"
+}
+```
+
+**Response:**
+
+```json
+{
+  "code": "OK",
+  "message": "Login successful",
+  "data": {
+    "sessionId": "abc123..."
+  }
+}
+```
+
+The session cookie will be automatically handled by your browser.
+
+## User Management Endpoints
+
+### Register a new user
+
+**Endpoint:**
+`POST /auth/register`
+
+**Request:**
+
+```json
+{
+  "fullName": "Javier Suárez",
+  "email": "javier.suarez@example.com",
+  "age": 30,
+  "password": "securePass123",
+  "role": "user"
+}
+```
+
+**Response:**
+
+```json
+{
+  "code": "OK",
+  "message": "User created successfully!",
+  "data": {
+    "fullName": "Javier Suárez",
+    "email": "javier.suarez@example.com",
+    "age": 30,
+    "password": "$2b$08$YavmnHLolf9n/Hu1/O8PuOvNZVRdvWYynWPClXOMCwhMuKqUYBvNK",
+    "role": "user",
+    "_id": "68df150262ca16a4631f54eb",
+    "__v": 0
+  }
+}
+```
 
 ## Health Check
 
