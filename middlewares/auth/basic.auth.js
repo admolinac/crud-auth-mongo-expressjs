@@ -26,9 +26,9 @@ const basicAuth = async (req, res, next) => {
             return res.status(401).json(ERROR_MESSAGES.INVALID_CREDENTIALS);
         }
 
-        const user = await Users.getUserByEmail(email);
+        const user = await Users.loginUser(email, password);
 
-        if (!user || user.password !== password) {
+        if (!user) {
             return res.status(401).json(ERROR_MESSAGES.INVALID_CREDENTIALS);
         }
 
